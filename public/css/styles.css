@@ -1,0 +1,42 @@
+.btn-h1-spacing{
+	margin-top: 18px;
+}
+
+.form-spacing-top{
+	margin-top: 30px;
+}
+.comments-title{
+	padding-bottom: 0px;
+}
+.comments-title>span{
+	margin-bottom: 45px;
+}
+.comment{
+	margin-bottom: 45px;
+}
+.author-img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	float: left;
+}
+.author-name{
+	float: left;
+	margin-left: 15px;
+}
+.author-name>h4{
+	color: #0066ff;
+	font-size: 15px;
+	font-family: Arial Black, Gadget, sans-serif;
+}
+.author-time{
+	color: #aaa;
+	font-size: 11px;
+	font-style: italic;
+}
+.comment-content{
+	clear: both;
+	margin-left: 65px;
+	font-size: 16px;
+	line-height: 1.3em;
+}
