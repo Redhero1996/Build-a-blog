@@ -4,4 +4,4 @@
 	{{ $bodyMessage }}
 </div>
 
-<p> Sent via {{ $email }}</p>
+<p> Sent via <a href="">{{ $email }}</a></p>

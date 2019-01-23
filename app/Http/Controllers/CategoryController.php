@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\Contracts\CategoryRepositoryInterface as Repository;
 use Session;
 use App\Category;
 
 class CategoryController extends Controller
 {
-    public function __construct(){
+    protected $categoryRepository;
+
+    public function __construct(Repository $categoryRepository){
         $this->middleware('auth');
+        $this->categoryRepository = $categoryRepository;
+
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +25,7 @@ class CategoryController extends Controller
     {
         // display a view of all of our categories       
         // it will also have a form to create a new category 
-        $categories = Category::all();
+        $categories = $this->categoryRepository->all();
         return view('categories.index')->withCategories($categories);
     }
 
@@ -53,7 +58,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-       $category = Category::find($id);
+       $category = $this->categoryRepository->find($id);
        return view('categories.show')->withCategory($category);
     }
 

@@ -36,7 +36,9 @@
 				{!! Form::select('tags[]', $tags, null, ['class' => 'form-control select2-multi', 'multiple' => 'multiple']) !!}
 
 				{!! Form::label('featured_image', 'Upload Featured Image:', ['class' => 'form-spacing-top']) !!}
+				{{ Form::image("images/$post->image", '', ['class' => 'image']) }}
 				{{ Form::file('featured_image') }}
+				<br/>
 
 				{!! Form::label('body', 'Body:', ['class' => 'form-spacing-top']) !!}
 				{{ Form::textarea('body', null, ['class' => 'form-control']) }}

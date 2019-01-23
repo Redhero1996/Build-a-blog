@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use Purifier;
 use Session;
@@ -45,23 +46,15 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        // validate the data
-        $request->validate([
-        	'title'         => 'required|max:255',
-            'slug'          => 'required|alpha_dash|max:255|min:5|unique:posts,slug',
-            'category_id'   => 'required|integer',
-        	'body'          => 'required',
-            'featured_image'=> 'sometimes|image',
-        ]);
         // store in the database
-        $post = new Post;
-
-        $post->title = $request->title;
-        $post->slug = $request->slug;
-        $post->category_id = $request->category_id;
-        $post->body = Purifier::clean($request->body);
+        $post = Post::create([
+            'title' => $request->title,
+            'slug' => str_slug($request->slug),
+            'category_id' => $request->category_id,
+            'body' => Purifier::clean($request->body),
+        ]);
 
         // save our image
         if($request->hasFile('featured_image')){

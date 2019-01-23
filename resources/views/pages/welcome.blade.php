@@ -17,6 +17,7 @@
       <!-- end of header .row -->
 
       <div class="row">
+        @include('partials._sidebar')
         <div class="col-md-8">
           <div class="post">          
             @foreach ($posts as $post)
@@ -29,7 +30,7 @@
               <h3>{{$post->title}} <i><small>on {{$created_at->format('M j, Y')}}</small></i></h3> 
   
               {{-- strip_tags( $str, $option);
-                    + $str là chuỗi cần loại bỏ cá thẻ HTML và PHP.
+                    + $str là chuỗi cần loại bỏ các thẻ HTML và PHP.
                     + $option là các thẻ mà bạn muốn hàm strip_tags() không loại bỏ. Các thẻ này sẽ được giữ lại trong chuỗi trả về.
                --}}
               <p>{{ substr(strip_tags($post->body), 0, 300)}}{{strlen(strip_tags($post->body)) ? '...' : '' }}</p>
@@ -40,9 +41,7 @@
           <hr>
         </div>
 
-        <div class="col-md-3 col-md-offset-1">
-          <h2>Sidebar</h2>
-        </div>
+        
       </div>
 
       <div class="text-center">

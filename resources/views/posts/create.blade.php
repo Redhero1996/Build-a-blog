@@ -18,20 +18,27 @@
 	  <div class="col-md-8 col-md-offset-2">
 	    <h1>Create New Post</h1>
 	    <hr>
-	    <form data-parsley-validate method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+	    <form  method="POST" data-parsley-validate action="{{ route('posts.store') }}" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
 	    	
 	      <div class="form-group">
 	        <label for="title">Title:</label>
-	        <input id="title" name="title" class="form-control" required="">
-			{{-- @if($errors->has('title'))
-				<span style="color: red;"><i>{{$errors->first('title')}}</i></span>
-			@endif --}}
+	        <input id="title" name="title" class="form-control" value="{!! old('title') !!}" required="">
+			@if($errors->has('title'))
+				<span class="help-block">
+                    <strong>{{ $errors->first('title') }}</strong>
+                </span>
+			@endif
 	      </div>
 
 	      <div class="form-group">
 	        <label for="slug">Slug:</label>
-	        <input type="text" id="slug" name="slug" rows="10" class="form-control" required=""></input>
+	        <input type="text" id="slug" name="slug" rows="10" class="form-control" value="{!! old('slug') !!}" required=""></input>
+	        @if($errors->has('slug'))
+				<span class="help-block">
+                    <strong>{{ $errors->first('slug') }}</strong>
+                </span>
+			@endif
 	      </div> 
 
 	      <div class="form-group">
@@ -45,7 +52,7 @@
 
 	      <div class="form-group">
 	        <label for="tags">Tag:</label>
-	        <select class="form-control select2-multi" name="tags[]" multiple="multiple">
+	        <select class="form-control select2-multi" name="tags[]" multiple="multiple" >
 	        	@foreach ($tags as $tag)
 	        		<option value="{{ $tag->id }}">{{ $tag->name }}</option>
 	        	@endforeach
@@ -59,7 +66,8 @@
 
 	      <div class="form-group">
 	        <label for="body">Post Body:</label>
-	        <textarea id="body" name="body" rows="10" class="form-control"></textarea>
+	        <textarea id="body" name="body" rows="10" class="form-control" ></textarea>
+
 	      </div>
 
 	      <input type="submit" value="Create Post" class="btn btn-info btn-lg btn-block">

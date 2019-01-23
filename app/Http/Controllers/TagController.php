@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\Contracts\TagRepositoryInterface ;
 use Session;
 use App\Tag;
 
 class TagController extends Controller
 {
-    public function __construct(){
+    protected $tagRepository;
+
+    public function __construct(TagRepositoryInterface $tagRepository){
         $this->middleware('auth');
+        $this->tagRepository = $tagRepository;
     }
     /**
      * Display a listing of the resource.
@@ -18,7 +22,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
+        $tags = $this->tagRepository->all();
         return view('tags.index')->withTags($tags);
     }
 
@@ -30,14 +34,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|max:255',
         ]);
-
-        $tag = new Tag;
-
-        $tag->name = $request->name;
-        $tag->save();
+        
+        $tag = $this->tagRepository->create($data);
 
         Session::flash('success', 'New Tag has been created');
         return redirect()->route('tags.index');
@@ -51,7 +52,7 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        $tag = Tag::find($id);
+        $tag = $this->tagRepository->find($id);
         return view('tags.show')->withTag($tag);
     }
 
